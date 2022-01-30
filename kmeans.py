@@ -1,5 +1,7 @@
+from calendar import c
 import random
-import statistics
+from bokeh.plotting import figure, show, output_file
+
 
 class Cluster():
 
@@ -54,6 +56,13 @@ def generate_points(K):
     return [(random.randint(0,10), random.randint(0,10))
         for _ in range(K)]
 
+def get_coords(cluster_points):
+    x_axis = [cp[0] for cp in cluster_points]
+    y_axis = [cp[1] for cp in cluster_points]
+    return x_axis,y_axis,y_axis
+
+        
+
 
 def main():
     K = 3
@@ -69,8 +78,15 @@ def main():
         stop = K_Means(clusters,data_points)
         readjust(clusters)
         i+=1
+
+        x = []
+        y = []
         for k,v in clusters.items():
-            print(v.points)
+            x_axis,y_axis = get_coords(v.points)
+            x.append(x_axis)
+            y.append(y_axis)
+        
+        
         print("\n")
     
 
